@@ -64,17 +64,76 @@ export class UsersService {
             nest: true,
         });
 
-    
+        //users.map(item => item.roles = Object.values(item.roles))
 
-        // for( let i = 0; i < users.length; i++){
-        //     let newArr = []
-        //     console.log(users[i], "i<<<<<<<<<")
-        //     if(users.id[i] === users.id[i]){
-                
+        ////////////////////////////////////////////
+
+        // const arr1 = [], arr2 = []
+        // users.filter((item) => {
+        //     if (!arr1.some((element) => element.id === item.id)) {
+        //         arr1.push(item);
         //     }
+        //     else {
+        //         arr2.push(item)
+        //     }
+            
+        // });
+        // for (let i = 0; i < arr1.length; i++) {
+        //     arr1[i].id === arr2[i].id ? arr1[i].roles = arr1[i].roles.concat(arr2[i].roles) : arr1[i].roles
         // }
 
-        // console.log(users.id)
+        //////////////////////////////////////////
+
+        // let arr1 = users.reduce(function (newArr, value, i) {
+        //     if(!newArr.some((element) => element.id === value.id)){
+        //         newArr.push({...users[i], roles: Object.values(users[i].roles)});
+        //     } else {
+        //         newArr[newArr.length - 1].roles.push(...Object.values(users[i].roles));
+        //     }
+        //     return newArr;
+        // }, []);
+
+        // 
+
+        let arr1 = Object.values(users.reduce((acc, curr) => {
+            if (acc[curr.id]) acc[curr.id].roles.push(...Object.values(curr.roles));
+            else acc[curr.id] = {...curr, roles: Object.values(curr.roles)}
+            return acc;
+        }, {}));
+
+
+
+        return arr1
+
+
+        ///////////////////////////////////////////////
+
+        // let arr = users.reduce(function (newArr, value, i) {
+        //     if(i % 2 === 0) {
+        //         newArr.push(value);
+        //         newArr[newArr.length - 1].roles.concat(users[i + 1].roles)
+        //     }
+        //     else(
+        //         newArr[i].roles.concat(users[i + 1].roles)
+        //     )
+        //     return newArr;
+        // }, []);
+
+        // console.log(arr)
+
+        //////////////////////////////////////////////////////////
+
+       
+
+        // for (let i = 0; i < newArr.length; i++) {
+        //     console.log(newArr[i].roles, "<<<1")
+        //     console.log(users[i + 1], "<<<2")
+
+        //      newArr[i].id === users[i].id ? 
+        //         newArr[i].roles = newArr[i].roles.concat(users[i + 1].roles) :
+        //         newArr[i].roles
+        // }
+
 
         // let Arr = users.reduce(function (newArr, user) {
         //     if (user.roles === user.roles) {
@@ -82,14 +141,6 @@ export class UsersService {
         //     }
         //     return newArr;
         //   }, []);
-
-
-
-
-  
-
-
-        return users;
 
         // return users.reduce((previousValue, currentValue) => previousValue.concat(currentValue))
 
@@ -100,7 +151,6 @@ export class UsersService {
         //     // user.setDataValue('roles', roles);
         //     user.roles = roless;
         // });
-        // return users;
 
 
         // let newLog = JSON.stringify(users.map(item => item))
@@ -113,7 +163,5 @@ export class UsersService {
         // for(let i = 0; i < Arrrr.length; i++) {
         //     Arrrr[i].roles = newRole[i]
         // } 
-
-
     }
 }
